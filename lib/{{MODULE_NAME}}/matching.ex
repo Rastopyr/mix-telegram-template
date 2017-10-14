@@ -15,7 +15,7 @@ defmodule {{MODULE_NAME}}.Matching do
 
   def handle_cast({:match, msg}, state) do
     try do
-      Commands.match_msg(msg)
+      Commands.match_message(msg)
     rescue
       _ -> nil
     end

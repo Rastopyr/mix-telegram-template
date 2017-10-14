@@ -150,13 +150,11 @@ defmodule {{MODULE_NAME}}.Proxy do
   defmacro get_chat_id do
     quote do
       case var!(update) do
-        %{inline_query: inline_query} when not is_nil(inline_query) ->
-          inline_query.from.id
-        %{callback_query: callback_query} when not is_nil(callback_query) ->
-          callback_query.message.chat.id
-        %{message: %{chat: %{id: id}}} when not is_nil(id) ->
-          id
-        %{edited_message: %{chat: %{id: id}}} when not is_nil(id) ->
+        %Nadia.Model.InlineQuery{ from: from } ->
+          from.id
+        %Nadia.Model.CallbackQuery{ message: message } ->
+          message.chat.id
+        %Nadia.Model.Message{ id: id } ->
           id
         _ -> raise "No chat id found!"
       end
