@@ -70,13 +70,13 @@ defmodule Telega.Utils do
   def generate_inline_query_command(command, handler) do
     quote do
       def do_match_message(%Nadia.Model.InlineQuery{
-        %{query: "/" <> unquote(command)}
+        query: "/" <> unquote(command)
       } = var!(update)) do
         handle_message unquote(handler), [var!(update)]
       end
 
       def do_match_message(%Nadia.Model.InlineQuery{
-        %{ query: "/" <> unquote(command) <> " " <> _}
+        query: "/" <> unquote(command) <> " "
       } = var!(update)) do
         handle_message unquote(handler), [var!(update)]
       end
@@ -94,13 +94,13 @@ defmodule Telega.Utils do
   def generate_callback_query_command(command, handler) do
     quote do
       def do_match_message(%Nadia.Model.CallbackQuery{
-        %{data: "/" <> unquote(command)}
+        data: "/" <> unquote(command)
       } = var!(update)) do
         handle_message unquote(handler), [var!(update)]
       end
 
       def do_match_message(%Nadia.Model.CallbackQuery{
-        %{data: "/" <> unquote(command) <> " " <> _}
+        data: "/" <> unquote(command) <> " "
       } = var!(update)) do
         handle_message unquote(handler), [var!(update)]
       end
@@ -217,7 +217,7 @@ defmodule Telega.Utils do
     end
   end
 
-  def handle_message(function, update)
+  def handle_message(function)
   when is_function(function) do
     Task.async fn ->
       function
