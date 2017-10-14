@@ -1,6 +1,6 @@
 use Mix.Config
 
-config :app,
+config :{{APP_NAME}},
   bot_name: ""
 
 config :nadia,

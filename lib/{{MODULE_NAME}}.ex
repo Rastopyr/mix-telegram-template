@@ -2,7 +2,7 @@ defmodule {{MODULE_NAME}} do
   use Application
  use Supervisor
 
- tmp_dir = {{MODULE_NAME}}.Util.tmp_dir
+ tmp_dir = System.tmp_dir
  unless File.exists?(tmp_dir), do: File.mkdir(tmp_dir)
 
  def start(_type, _args) do

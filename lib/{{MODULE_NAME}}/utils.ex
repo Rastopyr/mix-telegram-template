@@ -1,4 +1,4 @@
-defmodule {{MODULE_NAME}}.Utils do
+defmodule Telega.Utils do
   @bot_name Application.get_env(:app, :bot_name)
 
   # Code injectors
@@ -6,7 +6,7 @@ defmodule {{MODULE_NAME}}.Utils do
   defmacro __using__(_opts) do
     quote do
       require Logger
-      import {{MODULE_NAME}}.Utils
+      import Telega.Utils
 
       def match_message(message) do
         try do
@@ -32,34 +32,26 @@ defmodule {{MODULE_NAME}}.Utils do
 
   defp generate_command(command, handler) do
     quote do
-      def do_match_message(%{
-        message: %{
-          text: "/" <> unquote(command)
-        }
+      def do_match_message(%Nadia.Model.Message{
+        text: "/" <> unquote(command)
       } = var!(update)) do
         handle_message unquote(handler), [var!(update)]
       end
 
-      def do_match_message(%{
-        message: %{
-          text: "/" <> unquote(command) <> " " <> _
-        }
+      def do_match_message(%Nadia.Model.Message{
+        text: "/" <> unquote(command) <> " " <> _
       } = var!(update)) do
         handle_message unquote(handler), [var!(update)]
       end
 
-      def do_match_message(%{
-        message: %{
-          text: "/" <> unquote(command) <> "@" <> unquote(@bot_name)
-        }
+      def do_match_message(%Nadia.Model.Message{
+        text: "/" <> unquote(command) <> "@" <> unquote(@bot_name)
       } = var!(update)) do
         handle_message unquote(handler), [var!(update)]
       end
 
-      def do_match_message(%{
-        message: %{
-          text: "/" <> unquote(command) <> "@" <> unquote(@bot_name) <> " " <> _
-        }
+      def do_match_message(%Nadia.Model.Message{
+        text: "/" <> unquote(command) <> "@" <> unquote(@bot_name) <> " " <> _
       } = var!(update)) do
         handle_message unquote(handler), [var!(update)]
       end

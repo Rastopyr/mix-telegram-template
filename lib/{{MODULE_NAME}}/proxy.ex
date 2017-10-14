@@ -1,4 +1,4 @@
-defmodule {{MODULE_NAME}}.Proxy do
+defmodule Telega.Proxy do
   @bot_name Application.get_env(:app, :bot_name)
 
   # Code injectors
@@ -6,7 +6,7 @@ defmodule {{MODULE_NAME}}.Proxy do
   defmacro __using__(_opts) do
     quote do
       require Logger
-      import {{MODULE_NAME}}.Proxy
+      import Telega.Proxy
       alias Nadia.Model
       alias Nadia.Model.InlineQueryResult
     end
@@ -154,7 +154,7 @@ defmodule {{MODULE_NAME}}.Proxy do
           from.id
         %Nadia.Model.CallbackQuery{ message: message } ->
           message.chat.id
-        %Nadia.Model.Message{ id: id } ->
+        %Nadia.Model.Message{ chat: %Nadia.Model.Chat{ id: id } } ->
           id
         _ -> raise "No chat id found!"
       end

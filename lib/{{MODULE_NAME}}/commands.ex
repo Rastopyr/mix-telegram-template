@@ -1,5 +1,5 @@
 defmodule {{MODULE_NAME}}.Commands do
-  use {{MODULE_NAME}}.Router
+  use {{MODULE_NAME}}.Utils
   use {{MODULE_NAME}}.Proxy
 
   alias {{MODULE_NAME}}.Commands.Separate
