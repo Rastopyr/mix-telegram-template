@@ -1,5 +1,5 @@
 defmodule Telega.Proxy do
-  @bot_name Application.get_env(:app, :bot_name)
+  @bot_name Application.get_env(:{{APP_NAME}}, :bot_name)
 
   # Code injectors
 

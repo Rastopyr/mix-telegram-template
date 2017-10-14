@@ -1,5 +1,5 @@
 defmodule Telega.Utils do
-  @bot_name Application.get_env(:app, :bot_name)
+  @bot_name Application.get_env(:{{APP_NAME}}, :bot_name)
 
   # Code injectors
 
@@ -60,7 +60,7 @@ defmodule Telega.Utils do
 
   def generate_inline_query_matcher(handler) do
     quote do
-      def do_match_message(%{inline_query: inline_query} = var!(update))
+      def do_match_message(%Nadia.Model.InlineQuery{} = var!(update))
       when not is_nil(inline_query) do
         handle_message unquote(handler), [var!(update)]
       end
@@ -69,14 +69,14 @@ defmodule Telega.Utils do
 
   def generate_inline_query_command(command, handler) do
     quote do
-      def do_match_message(%{
-        inline_query: %{query: "/" <> unquote(command)}
+      def do_match_message(%Nadia.Model.InlineQuery{
+        %{query: "/" <> unquote(command)}
       } = var!(update)) do
         handle_message unquote(handler), [var!(update)]
       end
 
-      def do_match_message(%{
-        inline_query: %{query: "/" <> unquote(command) <> " " <> _}
+      def do_match_message(%Nadia.Model.InlineQuery{
+        %{ query: "/" <> unquote(command) <> " " <> _}
       } = var!(update)) do
         handle_message unquote(handler), [var!(update)]
       end
@@ -85,8 +85,7 @@ defmodule Telega.Utils do
 
   def generate_callback_query_matcher(handler) do
     quote do
-      def do_match_message(%{callback_query: callback_query} = var!(update))
-      when not is_nil(callback_query) do
+      def do_match_message(%Nadia.Model.CallbackQuery{} = var!(update)) do
         handle_message unquote(handler), [var!(update)]
       end
     end
@@ -94,14 +93,14 @@ defmodule Telega.Utils do
 
   def generate_callback_query_command(command, handler) do
     quote do
-      def do_match_message(%{
-        callback_query: %{data: "/" <> unquote(command)}
+      def do_match_message(%Nadia.Model.CallbackQuery{
+        %{data: "/" <> unquote(command)}
       } = var!(update)) do
         handle_message unquote(handler), [var!(update)]
       end
 
-      def do_match_message(%{
-        callback_query: %{data: "/" <> unquote(command) <> " " <> _}
+      def do_match_message(%Nadia.Model.CallbackQuery{
+        %{data: "/" <> unquote(command) <> " " <> _}
       } = var!(update)) do
         handle_message unquote(handler), [var!(update)]
       end

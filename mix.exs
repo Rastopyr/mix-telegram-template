@@ -13,7 +13,7 @@ defmodule {{MODULE_NAME}}.Mixfile do
   def application do
     [
       mod: { {{MODULE_NAME}}, [] },
-      applications: [:logger]
+      applications: [:logger, :nadia]
     ]
   end
 
