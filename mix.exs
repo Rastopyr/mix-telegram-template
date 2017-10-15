@@ -24,7 +24,7 @@ defmodule {{MODULE_NAME}}.Mixfile do
   # { :barbat, "~> 0.1", github: "elixir-lang/barbat" }
   defp deps do
     [
-      {:nadia, "~> 0.4.2"}
+      {:nadia, git: "git@github.com:Rastopyr/nadia.git"}
     ]
   end
 end

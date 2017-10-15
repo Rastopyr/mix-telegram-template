@@ -1,9 +1,9 @@
-defmodule {{MODULE_NAME}}.Polling do
+defmodule Telega.Polling do
   use GenServer
   require Logger
 
   def start_link(opts \\ []) do
-    Logger.log :info, "Starting polling."
+    Logger.info "Start polling"
     GenServer.start_link(__MODULE__, :ok, opts)
   end
 
@@ -13,15 +13,20 @@ defmodule {{MODULE_NAME}}.Polling do
   end
 
   def handle_info({:update, id}, state) do
-    new_id = Nadia.get_updates([offset: id]) |> process_messages
+    new_id = Nadia.get_updates([
+      offset: id
+    ]) |> process_messages
 
     :erlang.send_after(100, self, {:update, new_id + 1})
     {:noreply, state}
   end
 
+  def process_message(%{ message: message }) when not is_nil(message), do: process_message message
+  def process_message(%{ inline_query: inline_query }) when not is_nil(inline_query), do: process_message inline_query
+
   def process_message(msg) do
     try do
-      GenServer.cast({{MODULE_NAME}}.Matching, {:match, msg})
+      GenServer.cast(Telega.Matching, {:match, msg})
     rescue
       e in MatchError -> Logger.log :warn, "[ERR] #{msg}, #{e}"
     end
@@ -29,7 +34,7 @@ defmodule {{MODULE_NAME}}.Polling do
 
   def process_messages({:ok, []}), do: -1
   def process_messages({:ok, results}) do
-    for item <- results, do: item.message |> process_message
+    for item <- results, do: item |> process_message
     List.last(results).update_id
   end
 

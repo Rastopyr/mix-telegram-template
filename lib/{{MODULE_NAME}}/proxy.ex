@@ -5,7 +5,6 @@ defmodule Telega.Proxy do
 
   defmacro __using__(_opts) do
     quote do
-      require Logger
       import Telega.Proxy
       alias Nadia.Model
       alias Nadia.Model.InlineQueryResult
@@ -16,13 +15,13 @@ defmodule Telega.Proxy do
 
   defmacro answer_callback_query(options \\ []) do
     quote bind_quoted: [options: options] do
-      Nadia.answer_callback_query var!(update).callback_query.id, options
+      Nadia.answer_callback_query var!(update).id, options
     end
   end
 
   defmacro answer_inline_query(results, options \\ []) do
     quote bind_quoted: [results: results, options: options] do
-      Nadia.answer_inline_query var!(update).inline_query.id, results, options
+      Nadia.answer_inline_query var!(update).id, results, options
     end
   end
 

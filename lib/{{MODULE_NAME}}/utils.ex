@@ -60,8 +60,7 @@ defmodule Telega.Utils do
 
   def generate_inline_query_matcher(handler) do
     quote do
-      def do_match_message(%Nadia.Model.InlineQuery{} = var!(update))
-      when not is_nil(inline_query) do
+      def do_match_message(%Nadia.Model.InlineQuery{} = var!(update)) do
         handle_message unquote(handler), [var!(update)]
       end
     end
