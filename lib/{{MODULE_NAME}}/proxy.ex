@@ -1,11 +1,11 @@
-defmodule Telega.Proxy do
+defmodule {{MODULE_NAME}}.Proxy do
   @bot_name Application.get_env(:{{APP_NAME}}, :bot_name)
 
   # Code injectors
 
   defmacro __using__(_opts) do
     quote do
-      import Telega.Proxy
+      import {{MODULE_NAME}}.Proxy
       alias Nadia.Model
       alias Nadia.Model.InlineQueryResult
     end

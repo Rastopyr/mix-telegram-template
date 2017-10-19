@@ -1,4 +1,4 @@
-defmodule Telega.Utils do
+defmodule {{MODULE_NAME}}.Utils do
   @bot_name Application.get_env(:{{APP_NAME}}, :bot_name)
 
   # Code injectors
@@ -6,7 +6,7 @@ defmodule Telega.Utils do
   defmacro __using__(_opts) do
     quote do
       require Logger
-      import Telega.Utils
+      import {{MODULE_NAME}}.Utils
 
       def match_message(message) do
         try do

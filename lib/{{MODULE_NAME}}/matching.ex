@@ -3,9 +3,6 @@ defmodule {{MODULE_NAME}}.Matching do
   alias {{MODULE_NAME}}.Commands
 
   def start_link(opts \\ []) do
-    require Logger
-
-    Logger.log :info, "Starting parsing."
     GenServer.start_link(__MODULE__, :ok, opts)
   end
 

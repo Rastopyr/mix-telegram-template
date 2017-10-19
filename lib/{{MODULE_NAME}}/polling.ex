@@ -1,10 +1,8 @@
-defmodule Telega.Polling do
+defmodule {{MODULE_NAME}}.Polling do
   use GenServer
-  require Logger
 
   def start_link(opts \\ []) do
-    Logger.info "Start polling"
-    GenServer.start_link(__MODULE__, :ok, opts)
+    GenServer.start_link(__MODULE__, opts, name: __MODULE__)
   end
 
   def init(:ok) do
@@ -26,7 +24,7 @@ defmodule Telega.Polling do
 
   def process_message(msg) do
     try do
-      GenServer.cast(Telega.Matching, {:match, msg})
+      GenServer.cast({{MODULE_NAME}}.Matching, {:match, msg})
     rescue
       e in MatchError -> Logger.log :warn, "[ERR] #{msg}, #{e}"
     end
