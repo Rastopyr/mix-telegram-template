@@ -54,7 +54,7 @@ a function that takes a chat ID as the first parameter.
 The `send_message/2` macro automatically understands the local scoped `update`
 constant and properly injects the chat ID for you so you can focus on sending stuff.
 Most of the methods at Nadia module have it's macro version for you. Take a look at
-[App.Commander](lib/app/proxy.ex) to understand better.
+[App.Proxy](lib/app/proxy.ex) to understand better.
 
 Another feature that must be mentioned is that these macros can understand context.
 Let's take a look at the `get_chat_id/2` definitions:
